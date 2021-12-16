@@ -1,16 +1,16 @@
-import 'package:cis_office/loginscreens/register_user.dart';
+import 'package:cis_office/loginscreens/user_login.dart';
 import 'package:cis_office/user/home_user.dart';
 import 'package:flutter/material.dart';
 
-class login_user extends StatelessWidget {
-  const login_user({Key? key}) : super(key: key);
+class register_user extends StatelessWidget {
+  const register_user({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text("Register"),
       ),
       body: Center(
         child: Column(
@@ -55,28 +55,18 @@ class login_user extends StatelessWidget {
                   ),
                 );
               },
-              child: Text("Login"),
+              child: Text("Register"),
             ),
             TextButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext) => register_user(),
+                      builder: (BuildContext) => login_user(),
                     ),
                   );
                 },
-                child: Text("Don't have an account? Create New")),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext) => home_user(),
-                    ),
-                  );
-                },
-                child: Text("Organizers Login")),
+                child: Text("Already have an account? Login")),
           ],
         ),
       ),
