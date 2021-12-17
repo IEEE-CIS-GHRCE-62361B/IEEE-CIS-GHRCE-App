@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:cis_office/ticket/scanner/ticket_scanner.dart';
 import 'package:cis_office/ticket/generator/generate_ticket.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class home_user extends StatelessWidget {
+class home_user extends StatefulWidget {
   const home_user({Key? key}) : super(key: key);
 
+  @override
+  State<home_user> createState() => _home_userState();
+}
+
+class _home_userState extends State<home_user> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
