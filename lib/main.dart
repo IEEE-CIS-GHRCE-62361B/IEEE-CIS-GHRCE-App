@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         routes: {
-          '/': (context) => Splash(),
+          '/': (context) => login_user(),
           '/auth': (context) => AuthenticationWrapper(),
           "/login": (context) => login_user(),
           "/home": (context) => home_user(),

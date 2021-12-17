@@ -55,14 +55,18 @@ class login_user extends StatelessWidget {
               ),
               TextButton(onPressed: () {}, child: Text("Forget Password")),
               ElevatedButton(
-                onPressed: () {
-                  context
-                      .read<AuthenticationService>()
-                      .signIn(
-                        email: emailTextController.text.trim(),
-                        password: passwordTextController.text.trim(),
-                      )
-                      .then((String? result) => showSnackbar(context, result!));
+                onPressed: () async {
+                  final result =
+                      await context.read<AuthenticationService>().signIn(
+                            email: emailTextController.text.trim(),
+                            password: passwordTextController.text.trim(),
+                          );
+
+                  showSnackbar(context, result!);
+
+                  if (result == "Signed in") {
+                    Navigator.popUntil(context, ModalRoute.withName('/auth'));
+                  }
                 },
                 child: Text("Login"),
               ),

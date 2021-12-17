@@ -23,7 +23,7 @@ class _BookTicketState extends State<BookTicket> {
                 BarcodeWidget(
                   barcode: Barcode.qrCode(),
                   color: Colors.black,
-                  data: controller.text ?? 'Hello world',
+                  data: controller.text,
                   width: 200,
                   height: 200,
                 ),
