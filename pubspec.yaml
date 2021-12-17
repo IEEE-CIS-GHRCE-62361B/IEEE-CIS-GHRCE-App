@@ -38,6 +38,13 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0
 
   barcode_widget: ^2.0.2
+  # Firebase
+  firebase_core: ^1.0.3
+  firebase_auth: ^1.0.3
+
+  # State Management
+  provider: ^5.0.0
+
 
 dev_dependencies:
   flutter_test:
