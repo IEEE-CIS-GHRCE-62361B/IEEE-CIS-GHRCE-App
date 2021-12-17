@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cis_office/ticket/scanner/ticket_scanner.dart';
+import 'package:cis_office/ticket/generator/generate_ticket.dart';
 
 class home_user extends StatelessWidget {
   const home_user({Key? key}) : super(key: key);
@@ -94,8 +96,22 @@ class home_user extends StatelessWidget {
           ),
           child: Text('IEEE CIS GHRCE'),
         ),
-        ListTile(title: const Text('Item 1'), onTap: () {}),
-        ListTile(title: const Text('Item 1'), onTap: () {}),
+        ListTile(
+            title: const Text('Book Ticket'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => BookTicket()),
+              );
+            }),
+        ListTile(
+            title: const Text('Ticket Scanner'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TicketScan()),
+              );
+            }),
       ])),
     );
   }
