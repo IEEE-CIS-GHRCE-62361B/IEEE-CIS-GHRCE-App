@@ -1,3 +1,5 @@
+import 'package:cis_office/user/new_event.dart';
+
 import 'loginscreens/user_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -39,6 +41,7 @@ class MyApp extends StatelessWidget {
           "/login": (context) => login_user(),
           "/home": (context) => home_user(),
           "/register": (context) => register_user(),
+          "/new_event": (context) => new_event(),
         },
         debugShowCheckedModeBanner: false,
       ),
