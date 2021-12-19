@@ -1,11 +1,15 @@
+import 'package:cis_office/widget/event.dart';
 import 'package:flutter/material.dart';
 import 'package:cis_office/ticket/scanner/ticket_scanner.dart';
 import 'package:cis_office/ticket/generator/generate_ticket.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class home_user extends StatelessWidget {
-  final Stream<QuerySnapshot> events =
-      FirebaseFirestore.instance.collection('events').snapshots();
+  final Stream<QuerySnapshot> upcoming_events = FirebaseFirestore.instance
+      .collection('events')
+      .where("date",
+          isGreaterThanOrEqualTo: DateTime.now().millisecondsSinceEpoch)
+      .snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,83 +17,25 @@ class home_user extends StatelessWidget {
       appBar: AppBar(
         title: Text("Home"),
       ),
-      body: Center(
-          child: /*StreamBuilder<QuerySnapshot>(stream: events
-      .where())*/
-              Column(children: [
-        Text(
-          "\n Upcoming Events",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        Card(
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            children: [
-              ListTile(
-                leading: Icon(Icons.announcement_rounded, color: Colors.pink),
-                title: const Text('AI Summit 2022'),
-                subtitle: Text(
-                  '10th & 11th Jan 2022',
-                  style: TextStyle(color: Colors.black.withOpacity(0.6)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  'Greyhound divisively hello coldly wonderfully marginally far upon excluding.',
-                  style: TextStyle(color: Colors.black.withOpacity(0.6)),
-                ),
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.start,
-                children: [
-                  FlatButton(
-                    textColor: const Color(0xFF6200EE),
-                    onPressed: () {
-                      // Perform some action
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: upcoming_events,
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            return snapshot.hasData
+                ? ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) {
+                      var eventdata = snapshot.data!.docs[index].data();
+                      return event_widget(eventdata: eventdata);
                     },
-                    child: const Text('Register'),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                    itemCount: snapshot.data!.docs.length,
+                  )
+                : SizedBox.square();
+          },
         ),
-        Card(
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            children: [
-              ListTile(
-                leading: Icon(Icons.announcement_rounded, color: Colors.pink),
-                title: const Text('AI Summit 2022'),
-                subtitle: Text(
-                  '10th & 11th Jan 2022',
-                  style: TextStyle(color: Colors.black.withOpacity(0.6)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  'Greyhound divisively hello coldly wonderfully marginally far upon excluding.',
-                  style: TextStyle(color: Colors.black.withOpacity(0.6)),
-                ),
-              ),
-              ButtonBar(
-                alignment: MainAxisAlignment.start,
-                children: [
-                  FlatButton(
-                    textColor: const Color(0xFF6200EE),
-                    onPressed: () {
-                      // Perform some action
-                    },
-                    child: const Text('Register'),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ])),
+      ),
       drawer: Drawer(
           child: ListView(padding: EdgeInsets.zero, children: [
         const DrawerHeader(
