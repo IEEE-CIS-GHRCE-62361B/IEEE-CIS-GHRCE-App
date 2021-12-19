@@ -1,4 +1,5 @@
 import 'package:cis_office/user/new_event.dart';
+import 'package:cis_office/widget/themes.dart';
 
 import 'loginscreens/user_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        theme: MyTheme.lightTheme,
         routes: {
           '/': (context) => login_user(),
           '/auth': (context) => AuthenticationWrapper(),
