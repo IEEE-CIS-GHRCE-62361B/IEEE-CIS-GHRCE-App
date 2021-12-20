@@ -5,11 +5,9 @@ import 'package:cis_office/ticket/generator/generate_ticket.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class home_user extends StatelessWidget {
-  final Stream<QuerySnapshot> upcoming_events = FirebaseFirestore.instance
-      .collection('events')
-      .where("date",
-          isGreaterThanOrEqualTo: DateTime.now().millisecondsSinceEpoch)
-      .snapshots();
+  final Stream<QuerySnapshot> upcoming_events =
+      FirebaseFirestore.instance.collection('events').snapshots();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,30 +35,36 @@ class home_user extends StatelessWidget {
         ),
       ),
       drawer: Drawer(
-          child: ListView(padding: EdgeInsets.zero, children: [
-        const DrawerHeader(
-          decoration: BoxDecoration(
-            color: Colors.blue,
-          ),
-          child: Text('IEEE CIS GHRCE'),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('IEEE CIS GHRCE'),
+            ),
+            ListTile(
+              title: const Text('Book Ticket'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BookTicket()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Ticket Scanner'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TicketScan()),
+                );
+              },
+            ),
+          ],
         ),
-        ListTile(
-            title: const Text('Book Ticket'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => BookTicket()),
-              );
-            }),
-        ListTile(
-            title: const Text('Ticket Scanner'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TicketScan()),
-              );
-            }),
-      ])),
+      ),
     );
   }
 }

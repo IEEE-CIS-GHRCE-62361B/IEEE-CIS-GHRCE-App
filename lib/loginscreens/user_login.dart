@@ -7,8 +7,8 @@ import '../helper.dart';
 import 'authentication_service.dart';
 
 class login_user extends StatelessWidget {
-  TextEditingController emailTextController = TextEditingController();
-  TextEditingController passwordTextController = TextEditingController();
+  final TextEditingController emailTextController = TextEditingController();
+  final TextEditingController passwordTextController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -65,7 +65,13 @@ class login_user extends StatelessWidget {
                   showSnackbar(context, result!);
 
                   if (result == "Signed in") {
-                    Navigator.popUntil(context, ModalRoute.withName('/auth'));
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext) => home_user(),
+                      ),
+                      (Route<dynamic> route) => false,
+                    );
                   }
                 },
                 child: Text("Login"),

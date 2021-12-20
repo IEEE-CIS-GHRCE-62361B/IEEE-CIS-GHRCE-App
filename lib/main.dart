@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'loginscreens/authentication_service.dart';
 import 'loginscreens/register_user.dart';
-import 'loginscreens/splash.dart';
 import 'user/home_user.dart';
 
 Future<void> main() async {

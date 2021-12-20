@@ -7,8 +7,8 @@ import '../helper.dart';
 import 'authentication_service.dart';
 
 class register_user extends StatelessWidget {
-  TextEditingController emailTextController = TextEditingController();
-  TextEditingController passwordTextController = TextEditingController();
+  final TextEditingController emailTextController = TextEditingController();
+  final TextEditingController passwordTextController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
