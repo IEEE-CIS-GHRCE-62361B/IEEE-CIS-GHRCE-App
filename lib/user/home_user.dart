@@ -1,12 +1,31 @@
+import 'package:cis_office/loginscreens/authentication_service.dart';
+import 'package:cis_office/loginscreens/user_login.dart';
 import 'package:cis_office/widget/event.dart';
 import 'package:flutter/material.dart';
 import 'package:cis_office/ticket/scanner/ticket_scanner.dart';
 import 'package:cis_office/ticket/generator/generate_ticket.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/src/provider.dart';
+import '../helper.dart';
 
-class home_user extends StatelessWidget {
-  final Stream<QuerySnapshot> upcoming_events =
+class home_user extends StatefulWidget {
+  @override
+  State<home_user> createState() => _home_userState();
+}
+
+class _home_userState extends State<home_user> {
+  Stream<QuerySnapshot> upcoming_events =
       FirebaseFirestore.instance.collection('events').snapshots();
+  void getEvents() async {
+    upcoming_events =
+        await FirebaseFirestore.instance.collection('events').snapshots();
+  }
+
+  @override
+  void initState() {
+    getEvents();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +33,26 @@ class home_user extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("Home"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () async {
+              final result =
+                  await context.read<AuthenticationService>().signOut();
+              if (result == "Signed out") {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext) => login_user(),
+                  ),
+                  (Route<dynamic> route) => false,
+                );
+              } else {
+                showSnackbar(context, result!);
+              }
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

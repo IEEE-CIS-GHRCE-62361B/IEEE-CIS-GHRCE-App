@@ -62,8 +62,6 @@ class login_user extends StatelessWidget {
                             password: passwordTextController.text.trim(),
                           );
 
-                  showSnackbar(context, result!);
-
                   if (result == "Signed in") {
                     Navigator.pushAndRemoveUntil(
                       context,
@@ -72,6 +70,8 @@ class login_user extends StatelessWidget {
                       ),
                       (Route<dynamic> route) => false,
                     );
+                  } else {
+                    showSnackbar(context, result!);
                   }
                 },
                 child: Text("Login"),
@@ -100,7 +100,6 @@ class login_user extends StatelessWidget {
           ),
         ),
       ),
-      drawer: Drawer(),
     );
   }
 }
