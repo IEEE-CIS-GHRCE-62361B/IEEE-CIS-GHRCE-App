@@ -8,6 +8,7 @@ class event_widget extends StatelessWidget {
   Widget build(BuildContext context) {
     final name = eventdata['name'];
     final desc = eventdata['desc'];
+    final logo = eventdata['logo'];
     final completeDate = DateTime.fromMillisecondsSinceEpoch(eventdata['date']);
     final regularDate = "${completeDate.day}" +
         "-" +
@@ -19,8 +20,7 @@ class event_widget extends StatelessWidget {
         child: Column(
       children: [
         ListTile(
-          leading: Image.network(
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRISJ6msIu4AU9_M9ZnJVQVFmfuhfyJjEtbUm3ZK11_8IV9TV25-1uM5wHjiFNwKy99w0mR5Hk&usqp=CAc"),
+          leading: Image.network(logo),
           title: Text(name),
           subtitle: Text(desc),
         ),
