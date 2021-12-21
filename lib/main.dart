@@ -1,6 +1,5 @@
 import 'package:cis_office/user/new_event.dart';
 import 'package:cis_office/widget/themes.dart';
-
 import 'loginscreens/user_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -37,8 +36,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: MyTheme.lightTheme,
         routes: {
-          '/': (context) => login_user(),
-          '/auth': (context) => AuthenticationWrapper(),
+          '/': (context) => AuthenticationWrapper(),
           "/login": (context) => login_user(),
           "/home": (context) => home_user(),
           "/register": (context) => register_user(),
@@ -51,12 +49,15 @@ class MyApp extends StatelessWidget {
 }
 
 class AuthenticationWrapper extends StatelessWidget {
+  final User? firebaseUser = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
-    final firebaseuser = context.watch<User>();
-    if (firebaseuser != null) {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
       return home_user();
+    } else {
+      return login_user();
     }
-    return login_user();
   }
 }

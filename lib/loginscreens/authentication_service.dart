@@ -1,4 +1,7 @@
+import 'package:cis_office/loginscreens/user_login.dart';
+import 'package:cis_office/user/home_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class AuthenticationService {
   // 1
@@ -45,6 +48,18 @@ class AuthenticationService {
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
+  }
+
+  handleAuth(BuildContext context) {
+    return StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasData) {
+            return home_user();
+          } else {
+            return login_user();
+          }
+        });
   }
 
 // 6
